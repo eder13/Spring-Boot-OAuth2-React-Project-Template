@@ -6,33 +6,33 @@ import javax.persistence.*;
 
 /* Local Database */
 @Entity
-@Table(name = "users")
-public class Users {
+@Table(name = "user")
+public class User {
 
     /* Model of the MySQL Table 'users'*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    private int userID;
+    private int userId;
     private String name;
     private String email;
     @Column(columnDefinition = "boolean default false")
     private Boolean newsletter;
 
-    public Users() {}
+    public User() {}
 
-    public Users(String name, String email, boolean newsletter) {
+    public User(String name, String email, boolean newsletter) {
         this.name = name;
         this.email = email;
         this.newsletter = newsletter;
     }
 
     public int getUserID() {
-        return userID;
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserID(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {

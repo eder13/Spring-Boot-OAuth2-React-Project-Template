@@ -1,7 +1,7 @@
 package com.springreact.template.security;
 
-import com.springreact.template.db.Users;
-import com.springreact.template.db.UsersRepository;
+import com.springreact.template.db.User;
+import com.springreact.template.db.UserRepository;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +32,7 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository userRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -76,14 +76,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                             /// TODO: Check which Provider Login was - here hardcoded github example
                             GithubUser githubUser = gson.fromJson(json, GithubUser.class);
-                            Users newUser = new Users(githubUser.getName(), githubUser.getEmail(), false);
+                            User newUser = new User(githubUser.getName(), githubUser.getEmail(), false);
 
                             ExampleMatcher userMatcher = ExampleMatcher.matching().withIgnorePaths("userID").withMatcher("email", ignoreCase());
-                            Example<Users> usersExample = Example.of(newUser, userMatcher);
-                            boolean userExists = usersRepository.exists(usersExample);
+                            Example<User> usersExample = Example.of(newUser, userMatcher);
+                            boolean userExists = userRepository.exists(usersExample);
 
                             if(!userExists) {
-                                usersRepository.save(newUser);
+                                userRepository.save(newUser);
                             }
                         }
                         super.onAuthenticationSuccess(request, response, authentication);

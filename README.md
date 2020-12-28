@@ -28,17 +28,17 @@ npm commands (see `pom.xml`) and build the spring boot project.
 * (optional) Node.js
 
 ## Setup
-0. Download/clone this template. Adjust username, password and port number in `application.yml` wrt your MySQL setup.
+0. Clone this repository. Adjust username, password and port number in `application.yml` wrt your MySQL setup.
 
 
-1. Create a Database called `db_springreact`. You need a table called `users` where (server) user data is stored (user info). 
+1. Create a Database called `db_springreact`. You need a table called `user` where (server) user data is stored (user info). 
    This boilerplate expects the following schema:
 
     ```txt
     +------------+------------------+------+-----+---------+----------------+
     | Field      | Type             | Null | Key | Default | Extra          |
     +------------+------------------+------+-----+---------+----------------+
-    | userID     | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+    | user_id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
     | name       | varchar(255)     | YES  |     | NULL    |                |
     | email      | varchar(320)     | YES  |     | NULL    |                |
     | newsletter | tinyint(1)       | NO   |     | 0       |                |
@@ -48,10 +48,10 @@ npm commands (see `pom.xml`) and build the spring boot project.
     To create this schema, run the following command.
 
     ```sql
-    CREATE TABLE users (userID INT UNSIGNED NOT NULL AUTO_INCREMENT, name VARCHAR(255), email VARCHAR(320), newsletter BOOLEAN NOT NULL DEFAULT FALSE, PRIMARY KEY (userID));
+    CREATE TABLE user (user_id INT UNSIGNED NOT NULL AUTO_INCREMENT, name VARCHAR(255), email VARCHAR(320), newsletter BOOLEAN NOT NULL DEFAULT FALSE, PRIMARY KEY (user_id));
     ```
 
-    ***NOTE:*** If you want a different schema don't forget to adjust the configuration inside `Users.java` and `UsersRepository.java`
+    ***NOTE:*** If you want a different schema don't forget to adjust the configuration inside `User.java` and `UserRepository.java`
 
 
 2. Go to your OAuth Provider and register your Web App. For GitHub use e.g.
