@@ -1,0 +1,34 @@
+#------------------------------------------------------------------------------
+# Server Configurations
+#
+server:
+  port: 8081
+
+#------------------------------------------------------------------------------
+# MySQL Database config
+#
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    # TODO: Adjust host (e.g. localhost), port number and username+password
+    url: jdbc:mysql://${MYSQL_HOST:<HOST>}:<PORT>/db_springreact?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: <MySQL-user>
+    password: <MySQL-password>
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    rest:
+      base-path: "/api"
+
+  #------------------------------------------------------------------------------
+  # OAuth2 Authorization Servers
+  #
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            # TODO: Add your OAuth2 credentials here
+            client-id: <your-client-id>
+            client-secret: <your-client-secret>
