@@ -13,13 +13,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    private int userId;
+    private Long id;
     private String name;
     private String email;
     @Column(columnDefinition = "boolean default false")
     private Boolean newsletter;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String name, String email, boolean newsletter) {
         this.name = name;
@@ -27,12 +28,12 @@ public class User {
         this.newsletter = newsletter;
     }
 
-    public int getUserID() {
-        return userId;
+    public Long getUserID() {
+        return id;
     }
 
-    public void setUserID(int userId) {
-        this.userId = userId;
+    public void setUserID(Long userId) {
+        this.id = userId;
     }
 
     public String getName() {

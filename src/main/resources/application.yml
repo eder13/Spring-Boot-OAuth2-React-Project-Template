@@ -3,6 +3,9 @@
 #
 server:
   port: 8081
+  error:
+    whitelabel:
+      enabled: false
 
 #------------------------------------------------------------------------------
 # MySQL Database config
@@ -32,3 +35,15 @@ spring:
             # TODO: Add your OAuth2 credentials here
             client-id: <your-client-id>
             client-secret: <your-client-secret>
+
+#------------------------------------------------------------------------------
+# MySQL Enable Logging DEBUG
+#
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: debug
+#        type:
+#          descriptor:
+#            sql: trace

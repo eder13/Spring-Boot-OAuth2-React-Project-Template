@@ -2,11 +2,7 @@ package com.springreact.template.security;
 
 import com.springreact.template.db.User;
 import com.springreact.template.db.UserRepository;
-import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -25,14 +21,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.ignoreCase;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public SpringSecurityConfig(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -41,17 +40,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests(a -> a
-                        .antMatchers("/", "/error", "/main.css", "/built/**").permitAll()
+                        .antMatchers("/", "/login", "/error", "/built/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(e -> e
-                        // Return unauthenticated Webpage if not logged in (could also transform this into json this way)
+                        // Redirect to Login Endpoint if not authenticated
                         .authenticationEntryPoint(new AuthenticationEntryPoint() {
                             @Override
                             public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
                                 httpServletResponse.setContentType(MediaType.TEXT_HTML_VALUE);
                                 httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                                httpServletResponse.getOutputStream().println("<script>window.location.href = \"http://localhost:8081/\"</script>");
+                                /// TODO: For deployment, replace window.location.href with homepage domain home-url and login endpoint
+                                httpServletResponse.getOutputStream().println("<script>window.location.href = \"http://localhost:8081/login\"</script>");
                             }
                         })
                 )
@@ -67,23 +67,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
                         Authentication a = SecurityContextHolder.getContext().getAuthentication();
 
-                        if(a instanceof OAuth2AuthenticationToken) {
-                            OAuth2User user = ((OAuth2AuthenticationToken) a).getPrincipal();
+                        if (a instanceof OAuth2AuthenticationToken) {
+                            OAuth2User oauth2user = ((OAuth2AuthenticationToken) a).getPrincipal();
 
-                            // parse JSON
-                            Gson gson = new Gson();
-                            String json = gson.toJson(user.getAttributes());
+                            // get fields of interest
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("name", oauth2user.getAttribute("name"));
+                            map.put("email", oauth2user.getAttribute("email"));
 
-                            /// TODO: Check which Provider Login was - here hardcoded github example
-                            GithubUser githubUser = gson.fromJson(json, GithubUser.class);
-                            User newUser = new User(githubUser.getName(), githubUser.getEmail(), false);
-
-                            ExampleMatcher userMatcher = ExampleMatcher.matching().withIgnorePaths("userID").withMatcher("email", ignoreCase());
-                            Example<User> usersExample = Example.of(newUser, userMatcher);
-                            boolean userExists = userRepository.exists(usersExample);
-
-                            if(!userExists) {
-                                userRepository.save(newUser);
+                            // check if user logs in the first time -> true: save to database
+                            if (userRepository.findUserByEmail(map.get("email").toString()) == null) {
+                                User user = new User(map.get("name").toString(), map.get("email").toString(), false);
+                                userRepository.save(user);
                             }
                         }
                         super.onAuthenticationSuccess(request, response, authentication);

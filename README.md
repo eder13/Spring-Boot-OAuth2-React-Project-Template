@@ -3,23 +3,6 @@
 A full stack Spring Boot + React template with integrated OAuth2 (Github) support.
 
 The index.html is served on `localhost:8081/` using Thymeleaf. The api is served on `localhost:8081/api` endpoint (as specified in `application.yml`).
-
-## How it works
-
-The React frontend is served under `src/main/ui`, after building the whole project, a production built
-of the frontend is copied to `src/main/resources/built.js`. This is all done using the frontend-maven-plugin, which basically installs Node on Spring Boot.
-
-It's not necessary to build them separately. In fact, you just need to run
-
-    ./mvnw spring-boot:run   
-
-If you just wanna build the project, run
-
-    ./mvnw clean install
-
-to generate a production build. In the background it will run the specified
-npm commands (see `pom.xml`) and build the spring boot project.
-
 ## Requirements
 
 * MySQL (community server is fine)
@@ -27,8 +10,8 @@ npm commands (see `pom.xml`) and build the spring boot project.
 * (optional) maven
 * (optional) Node.js
 
-## Setup
-0. Download/clone this template. Adjust username, password and port number in `application.yml` wrt your MySQL setup.
+## Quick Start
+0. Clone this template. Adjust username, password and port number in `application.yml` wrt your MySQL setup.
 
 
 1. Create a Database called `db_springreact`. You need a table called `user` where (server) user data is stored (user info).
@@ -63,19 +46,30 @@ npm commands (see `pom.xml`) and build the spring boot project.
 3. Copy your `cliendId` and `clientSecret` and edit your `application.yml` file with those.
 
 
+4. Start the server using `./mvnw spring-boot:run` and navigate to [http://localhost:8081/](http://localhost:8081/)
+
+## How it works
+
+The React frontend is served under `src/main/frontend`, after building the whole project, a production built
+of the frontend is copied to `src/main/resources/built.js`. This is all done using the frontend-maven-plugin, which basically installs Node on Spring Boot.
+
+To build the backend + frontend and start the server, run
+
+    ./mvnw spring-boot:run   
+
+There is also a npm script for building the frontend if you just work on that
+
+    npm run watch
+
+__Side note__: Default white label errors have been disabled since otherwise React's router wouldn't kick in. This means
+you have to handle 404 Errors on the client (inside React). For custom errors (authentication errors), instead of the
+`/error` endpoint, the endpoint `/error?message=true` is used.
 
 ## Installing other npm packages (optional)
 
 There is a `package.json` inside the $ROOT of the project. You can simply add your additional npm packages here. If you
 have also NodeJS/npm installed on your local machine, you can also run `npm install <package>`, which will include the dependencies
 inside the `package.json`. When you build the project, the frontend-maven-plugin will then install all packages on the server side automatically.
-
-## Working on the frontend only (optional)
-
-As said, when the Spring Boot project is building, it will also build the frontend. There is also the possibility to
-watch the React source files, if you are altering this only:
-
-    npm run-script watch
 
 ## A note to maven (optional)
 

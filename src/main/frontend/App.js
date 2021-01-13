@@ -1,11 +1,9 @@
-import React, {useState, useEffect, Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
+import "./App.css";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-// specify root api rest path
-const root = '/api';
-
-// add xsrf cookie to every stuff
+// Axios XSRF Protection Config
 axios.interceptors.request.use((req) => {
 	if (
 		req.method === "post" ||
@@ -13,7 +11,6 @@ axios.interceptors.request.use((req) => {
 		req.method === "put" ||
 		req.method === "patch"
 	) {
-		// check if relative to url only
 		if (!(/^http:.*/.test(req.url) || /^https:.*/.test(req.url))) {
 			req.headers.common = {
 				...req.headers.common,
@@ -29,7 +26,6 @@ const App = () => {
 
 	const [user, setUser] = useState("");
 	const [isLoggedIn, setIsLoggedIn] = useState("");
-	const [isLoading, setIsLoading] = useState(true);
 	const [errorLogging, setErrorLogging] = useState("");
 
 	const logout = async (e) => {
@@ -38,62 +34,45 @@ const App = () => {
 	};
 
 	useEffect(() => {
-
 		const loadData = async () => {
-			const userData = await axios.get("/user");
-			return userData;
+			return await axios.get("/user");
 		}
 
+		// "authentication check" -> check if we can access /user endpoint
 		loadData().then(async (userData) => {
 			setUser(userData.data.name);
 			setIsLoggedIn('succeeded');
 		}).catch(async e => {
 			setIsLoggedIn('failed');
-			const req = await axios.get("/error");
+			const req = await axios.get("/error?message=true");
 			if(req.data !== "") {
 				setErrorLogging(req.data);
 			}
 		});
-
 	}, []);
 
-	useEffect(() => {
-
-		if(isLoggedIn === 'succeeded')
-			setIsLoading(false);
-
-		if(isLoggedIn === 'failed')
-			setIsLoading(false);
-
-	}, [isLoggedIn])
-
-	if(isLoading) {
+	if(isLoggedIn === 'succeeded') {
 		return (
-		  <b>Loading ...</b>
+			<Fragment>
+				<div>Hello {user}</div>
+				<button onClick={logout}>Logout</button>
+			</Fragment>
 		);
 	} else {
-		if(isLoggedIn === 'succeeded') {
-			return (
-				<Fragment>
-					<div>Hello {user}</div>
-					<button onClick={logout}>Logout</button>
-				</Fragment>
-			);
-		} else {
-			return(
-				<Fragment>
-					<h1>Login</h1>
-					<strong style={{color: 'red'}}>
-						{ errorLogging !== "" ? errorLogging : "" }
-					</strong>
-					<div className="container">
-						<div>
-							With GitHub: <a href="/oauth2/authorization/github">click here</a>
-						</div>
+		return(
+			<Fragment>
+				<h1>Login</h1>
+				<strong style={{color: 'red'}}>
+					{ errorLogging !== "" ? errorLogging : "" }
+				</strong>
+				<div className="container">
+					<div>
+						{/*TODO: Adjust Your OAuth2 Login URL here*/}
+						With GitHub: <a href="/oauth2/authorization/github">click here</a>
 					</div>
-				</Fragment>
-			);
-		}
+				</div>
+			</Fragment>
+		);
 	}
 }
 

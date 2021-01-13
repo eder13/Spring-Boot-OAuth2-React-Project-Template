@@ -17,21 +17,34 @@
   "license": "MIT",
   "homepage": "https://ranftl.dev/",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.0",
     "axios": "^0.21.1",
     "js-cookie": "^2.2.1",
+    "moment": "^2.29.1",
+    "normalize.css": "^8.0.1",
+    "prop-types": "^15.7.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-modal": "^3.12.1"
+    "react-modal": "^3.12.1",
+    "react-redux": "^7.2.2",
+    "react-router": "^5.2.0",
+    "react-router-config": "^5.1.1",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "reselect": "^4.0.0",
+    "styled-components": "^5.2.1"
   },
   "scripts": {
     "watch": "webpack --watch -d --output ./target/classes/static/built/bundle.js"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
-    "babel-loader": "^8.0.5",
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^5.0.1",
+    "style-loader": "^2.0.0",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.0.8"
   }

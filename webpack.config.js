@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
     entry: {
-        app: ['@babel/polyfill', './src/main/ui/index.js']
+        app: ['@babel/polyfill', './src/main/frontend/index.js']
     },
     devtool: 'sourcemaps',
     cache: true,
@@ -22,7 +22,14 @@ module.exports = {
                         presets: ["@babel/preset-env", "@babel/preset-react"]
                     }
                 }]
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
             }
         ]
-    }
+    },
 };
