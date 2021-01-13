@@ -78,3 +78,6 @@ run your own version of maven, you can build your own wrapper as described [here
 
     mvn -N io.takari:maven:wrapper
 
+### TODO
+* Protect api endpoints from other users so that a user can only access his/her endpoint
+* Add different roles (default is ROLE_USER) e.g. admin group in OAuth2
