@@ -40,7 +40,7 @@ const App = () => {
 
 		// "authentication check" -> check if we can access /user endpoint
 		loadData().then(async (userData) => {
-			setUser(userData.data.name);
+			setUser(userData.data.email);
 			setIsLoggedIn('succeeded');
 		}).catch(async e => {
 			setIsLoggedIn('failed');
