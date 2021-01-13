@@ -43,11 +43,11 @@ The index.html is served on `localhost:8081/` using Thymeleaf. The api is served
 * Homepage URL: http://localhost:8081
 * Authorization callback URL: http://localhost:8081/login/oauth2/code/github
 
-3. Copy your `cliendId` and `clientSecret` and edit your `application.yml` file with those.
+3. Copy your `cliendId` and `clientSecret` and edit your `application.yml` file with those. The stuff that needs 
+customization is also marked with TODOs.
 
 
 4. Start the server using `./mvnw spring-boot:run` and navigate to [http://localhost:8081/](http://localhost:8081/)
-
 ## How it works
 
 The React frontend is served under `src/main/frontend`, after building the whole project, a production built
