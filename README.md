@@ -48,14 +48,6 @@ customization is also marked with TODOs.
 
 4. Start the server using `./mvnw spring-boot:run` and navigate to [http://localhost:8081/](http://localhost:8081/)
 
-### Setting Private and Public endpoints
-
-TODO
-
-### Roles: Users and Admins with OAuth2
-
-TODO
-
 ## How it works
 
 The React frontend is served under `src/main/frontend`, after building the whole project, a production built
