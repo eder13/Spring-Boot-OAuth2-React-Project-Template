@@ -36,7 +36,6 @@ The index.html is served on `localhost:8081/` using Thymeleaf. The api is served
 
    ***NOTE:*** If you want a different schema don't forget to adjust the configuration inside `User.java` and `UserRepository.java`
 
-
 2. Go to your OAuth Provider and register your Web App. For GitHub use e.g.
 
 * Application Name: MyApplication
@@ -48,6 +47,15 @@ customization is also marked with TODOs.
 
 
 4. Start the server using `./mvnw spring-boot:run` and navigate to [http://localhost:8081/](http://localhost:8081/)
+
+### Setting Private and Public endpoints
+
+TODO
+
+### Roles: Users and Admins with OAuth2
+
+TODO
+
 ## How it works
 
 The React frontend is served under `src/main/frontend`, after building the whole project, a production built
@@ -77,7 +85,3 @@ This template comes with a maven wrapper so that you do not need to install mave
 run your own version of maven, you can build your own wrapper as described [here](https://www.baeldung.com/maven-wrapper):
 
     mvn -N io.takari:maven:wrapper
-
-### TODO
-* Protect api endpoints from other users so that a user can only access his/her endpoint
-* Add different roles (default is ROLE_USER) e.g. admin group in OAuth2
