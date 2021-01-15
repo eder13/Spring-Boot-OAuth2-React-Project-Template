@@ -65,7 +65,7 @@ public class HomeController {
 			return ResponseEntity.ok()
 					.headers(respHeader)
 					.body("{" +
-							"\"id\": " + user.getUserID() +
+							"\"id\": " + user.getId() +
 							"}"
 					);
 		} else {
