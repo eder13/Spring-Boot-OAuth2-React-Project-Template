@@ -67,8 +67,8 @@ const App = () => {
 				</strong>
 				<div className="container">
 					<div>
-						{/*TODO: Adjust Your OAuth2 Login URL here*/}
-						With GitHub: <a href="/oauth2/authorization/github">click here</a>
+						{/*TODO: Adjust your OAuth2 login providers here*/}
+						With Google: <a href="/oauth2/authorization/google">click here</a>
 					</div>
 				</div>
 			</Fragment>

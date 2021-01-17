@@ -31,8 +31,8 @@ spring:
     oauth2:
       client:
         registration:
-          github:
-            # TODO: Add your OAuth2 credentials here
+          google:
+            # TODO: Add your Google OAuth2 credentials here
             client-id: <your-client-id>
             client-secret: <your-client-secret>
 

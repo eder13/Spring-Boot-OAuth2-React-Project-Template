@@ -1,6 +1,6 @@
 # Spring Boot OAuth2 React Template
 
-A full stack Spring Boot + React template with integrated OAuth2 (Github) support.
+A full stack Spring Boot + React template with integrated OAuth2 (Google) support.
 
 The index.html is served on `localhost:8081/` using Thymeleaf. The api is served on `localhost:8081/api` endpoint (as specified in `application.yml`).
 ## Requirements
@@ -36,17 +36,18 @@ The index.html is served on `localhost:8081/` using Thymeleaf. The api is served
 
    ***NOTE:*** If you want a different schema don't forget to adjust the configuration inside `User.java` and `UserRepository.java`
 
-2. Go to your OAuth Provider and register your Web App. For GitHub use e.g.
+2. Go to your OAuth Provider and register your Web App. For Google do the following:
 
-* Application Name: MyApplication
-* Homepage URL: http://localhost:8081
-* Authorization callback URL: http://localhost:8081/login/oauth2/code/github
+* Setup new credentials (_Create credentials_ > _OAuth-Client-ID_) in the [Google API Console](https://console.developers.google.com/)
+    * Name: MyApplication
+    * Authorized Redirect URIs: [http://localhost:8080/login/oauth2/code/google](http://localhost:8081/login/oauth2/code/google)
 
 3. Copy your `cliendId` and `clientSecret` and edit your `application.yml` file with those. The stuff that needs 
 customization is also marked with TODOs.
 
 
-4. Start the server using `./mvnw spring-boot:run` and navigate to [http://localhost:8081/](http://localhost:8081/)
+4. Start the server using `./mvnw spring-boot:run` and navigate to [http://localhost:8081/](http://localhost:8081/). 
+You should now be able to login with Google. Afer a successful login you are presented with the (protected) content.
 
 ## How it works
 
