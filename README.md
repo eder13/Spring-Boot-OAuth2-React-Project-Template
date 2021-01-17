@@ -40,7 +40,7 @@ The index.html is served on `localhost:8081/` using Thymeleaf. The api is served
 
 * Setup new credentials (_Create credentials_ > _OAuth-Client-ID_) in the [Google API Console](https://console.developers.google.com/)
     * Name: MyApplication
-    * Authorized Redirect URIs: [http://localhost:8080/login/oauth2/code/google](http://localhost:8081/login/oauth2/code/google)
+    * Authorized Redirect URIs: [http://localhost:8081/login/oauth2/code/google](http://localhost:8081/login/oauth2/code/google)
 
 3. Copy your `cliendId` and `clientSecret` and edit your `application.yml` file with those. The stuff that needs 
 customization is also marked with TODOs.
