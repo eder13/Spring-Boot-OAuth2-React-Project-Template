@@ -1,5 +1,4 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import "./App.css";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 

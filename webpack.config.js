@@ -29,6 +29,15 @@ module.exports = {
                     'style-loader',
                     'css-loader'
                 ]
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif)$/,
+                loader: 'file-loader',
+                options: {
+                    publicPath: 'images/',
+                    outputPath: './src/main/resources/static/images',
+                    useRelativePath: true
+                }
             }
         ]
     },
