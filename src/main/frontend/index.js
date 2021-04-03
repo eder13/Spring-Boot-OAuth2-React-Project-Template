@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './components/App';
 import 'normalize.css';
-import GlobalStyle from "./GlobalStyle";
+import GlobalStyle from "./components/GlobalStyle";
 
 ReactDOM.render(
     <React.StrictMode>

@@ -1,3 +1,4 @@
+---
 #------------------------------------------------------------------------------
 # Server Configurations
 #
@@ -15,14 +16,14 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    # TODO: Adjust host (e.g. localhost), port number and username+password
+    # TODO: ADJUST HOST, PORT AND USER+PW HERE
     url: jdbc:mysql://${MYSQL_HOST:<HOST>}:<PORT>/db_springreact?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
     username: <MySQL-user>
     password: <MySQL-password>
     driver-class-name: com.mysql.cj.jdbc.Driver
   data:
     rest:
-      base-path: "/api"
+      base-path: '/api'
 
   #------------------------------------------------------------------------------
   # OAuth2 Authorization Servers
@@ -32,10 +33,9 @@ spring:
       client:
         registration:
           google:
-            # TODO: Add your Google OAuth2 credentials here
+            # TODO: ADJUST YOUR GOOGLE CLIENT CREDENTIALS
             client-id: <your-client-id>
             client-secret: <your-client-secret>
-
 #------------------------------------------------------------------------------
 # MySQL Enable Logging DEBUG
 #
