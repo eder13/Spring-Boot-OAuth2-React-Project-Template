@@ -16,16 +16,13 @@ public class User {
     private Long id;
     private String name;
     private String email;
-    @Column(columnDefinition = "boolean default false")
-    private Boolean newsletter;
 
     public User() {
     }
 
-    public User(String name, String email, boolean newsletter) {
+    public User(String name, String email) {
         this.name = name;
         this.email = email;
-        this.newsletter = newsletter;
     }
 
     public Long getId() {
@@ -50,13 +47,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Boolean getNewsletter() {
-        return newsletter;
-    }
-
-    public void setNewsletter(Boolean newsletter) {
-        this.newsletter = newsletter;
     }
 }

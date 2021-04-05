@@ -95,7 +95,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                             // check if user logs in the first time -> true: save to database
                             if (userRepository.findUserByEmail(map.get("email").toString()) == null) {
-                                User user = new User(map.get("name").toString(), map.get("email").toString(), false);
+                                User user = new User(map.get("name").toString(), map.get("email").toString());
                                 userRepository.save(user);
                             }
                         }

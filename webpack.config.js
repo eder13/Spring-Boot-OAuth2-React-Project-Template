@@ -1,4 +1,6 @@
 var path = require('path');
+var { DefinePlugin } = require('webpack');
+var dotenv = require('dotenv').config({path: __dirname + '/.env'});
 
 module.exports = {
     entry: {
@@ -39,6 +41,11 @@ module.exports = {
                     useRelativePath: true
                 }
             }
-        ]
+        ],
     },
+    plugins: [
+        new DefinePlugin({
+            'process.env': JSON.stringify(dotenv.parsed),
+        })
+    ],
 };

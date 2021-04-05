@@ -16,10 +16,9 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    # TODO: ADJUST HOST, PORT AND USER+PW HERE
-    url: jdbc:mysql://${MYSQL_HOST:<HOST>}:<PORT>/db_springreact?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
-    username: <MySQL-user>
-    password: <MySQL-password>
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/${DB_NAME}?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   data:
     rest:
@@ -33,7 +32,6 @@ spring:
       client:
         registration:
           google:
-            # TODO: ADJUST YOUR GOOGLE CLIENT CREDENTIALS
             client-id: <your-client-id>
             client-secret: <your-client-secret>
 #------------------------------------------------------------------------------

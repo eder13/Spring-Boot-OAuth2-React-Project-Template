@@ -2,7 +2,7 @@
 
 A full stack Spring Boot + React template with integrated OAuth2 (Google) support.
 
-The index.html is served on `localhost:8081/` using Thymeleaf. The api is served on `localhost:8081/api` endpoint (as specified in `application.yml`).
+The index.html is served on [localhost:8081/](localhost:8081/) using Thymeleaf. The api is served on [localhost:8081/api](localhost:8081/api) endpoint (as specified in `application.yml`).
 ## Requirements
 
 * MySQL (community server is fine)
@@ -10,11 +10,24 @@ The index.html is served on `localhost:8081/` using Thymeleaf. The api is served
 * (optional) maven
 * (optional) Node.js
 
+## Environment Variables
+
+Create a `.env` file inside the root of the project. The environment variables can be used in React (`process.env.ENV_VAR_NAME`) and 
+also referenced inside `application.yml` like `${ENV_VAR_NAME}` thanks to the [dotenv-java addon](https://github.com/cdimascio/dotenv-java).
+
 ## Quick Start
-0. Clone this template. Adjust username, password and port number in `application.yml` wrt your MySQL setup.
+0. Clone this template. Create a `.env` file in the root of the project and configure the database and OAuth2 google settings: 
 
+```dotenv
+DB_NAME = <your-database-name>
+DB_USER = <MySQL-user>
+DB_PASSWORD = <MySQL-password>
 
-1. Create a Database called `db_springreact`. You need a table called `user` where (server) user data is stored (user info).
+GOOGLE_OAUTH2_CLIENT_ID = <your-client-id>
+GOOGLE_OAUTH2_CLIENT_SECRET = <your-client-secret>
+```
+
+1. Create the aforementioned database (as you named it). You need a table called `user` where (server) user data is stored (user info).
    This boilerplate expects the following schema:
 
     ```txt
@@ -24,17 +37,17 @@ The index.html is served on `localhost:8081/` using Thymeleaf. The api is served
     | id         | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
     | name       | varchar(255)     | YES  |     | NULL    |                |
     | email      | varchar(320)     | YES  |     | NULL    |                |
-    | newsletter | tinyint(1)       | NO   |     | 0       |                |
     +------------+------------------+------+-----+---------+----------------+
     ```
 
    To create this schema, run the following command.
 
     ```sql
-    CREATE TABLE user (id INT UNSIGNED NOT NULL AUTO_INCREMENT, name VARCHAR(255), email VARCHAR(320), newsletter BOOLEAN NOT NULL DEFAULT FALSE, PRIMARY KEY (id));
+    CREATE TABLE user (id INT UNSIGNED NOT NULL AUTO_INCREMENT, name VARCHAR(255), email VARCHAR(320), PRIMARY KEY (id));
     ```
 
    ***NOTE:*** If you want a different schema don't forget to adjust the configuration inside `User.java` and `UserRepository.java`
+
 
 2. Go to your OAuth Provider and register your Web App. For Google do the following:
 
@@ -42,12 +55,11 @@ The index.html is served on `localhost:8081/` using Thymeleaf. The api is served
     * Name: MyApplication
     * Authorized Redirect URIs: [http://localhost:8081/login/oauth2/code/google](http://localhost:8081/login/oauth2/code/google)
 
-3. Copy your `cliendId` and `clientSecret` and edit your `application.yml` file with those. The stuff that needs 
-customization is also marked with TODOs.
+3. Copy your `cliendId` and `clientSecret` inside your `.env` file.
 
 
 4. Start the server using `./mvnw spring-boot:run` and navigate to [http://localhost:8081/](http://localhost:8081/). 
-You should now be able to login with Google. Afer a successful login you are presented with the (protected) content.
+You should now be able to login with Google. After a successful login you are presented with the (protected) content.
 
 ## How it works
 
