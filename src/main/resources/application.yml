@@ -32,8 +32,8 @@ spring:
       client:
         registration:
           google:
-            client-id: <your-client-id>
-            client-secret: <your-client-secret>
+            client-id: ${GOOGLE_OAUTH2_CLIENT_ID}
+            client-secret: ${GOOGLE_OAUTH2_CLIENT_SECRET}
 #------------------------------------------------------------------------------
 # MySQL Enable Logging DEBUG
 #
