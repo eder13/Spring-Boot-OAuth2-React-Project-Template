@@ -60,7 +60,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                                             "<meta name=\"viewport\" content=\"width-device-width, initial-scale=1.0\">" +
                                             /// TODO: FOR DEPLOYMENT REPLACE DOMAIN URL HERE (1)
                                             "<meta http-equiv=\"refresh\" content=\"5;url=http://localhost:8081/login\">" +
-                                            "<title>taskify login</title>" +
+                                            /// TODO: Replace Title
+                                            "<title>my title</title>" +
                                         "</head>" +
                                         "<body style=\"padding-left: 0.5rem;\">" +
                                             "<p>" +
