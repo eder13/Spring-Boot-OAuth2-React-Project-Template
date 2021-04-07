@@ -64,13 +64,13 @@ GOOGLE_OAUTH2_CLIENT_SECRET = <your-client-secret>
 ## How it works
 
 The React frontend is served under `src/main/frontend`, after building the whole project, a production built
-of the frontend is copied to `src/main/resources/built.js`. This is all done using the frontend-maven-plugin, which basically installs Node on Spring Boot.
+of the frontend is copied to `src/main/resources/static/built/bundle.js`. This is all done using the frontend-maven-plugin, which basically installs Node on Spring Boot.
 
 To build the backend + frontend and start the server, run
 
     ./mvnw spring-boot:run
 
-There is also a npm script for building the frontend if you just work on that
+There is also a npm script for building the frontend if you just work on that (refresh page afterwards).
 
     npm run watch
 
