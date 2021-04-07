@@ -199,3 +199,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# frontend builds
+src/resources/static/build/bundle.*
