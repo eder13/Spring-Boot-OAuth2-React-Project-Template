@@ -32,7 +32,7 @@ const Home = () => {
 
     const logout = async (e) => {
         await axios.post("/logout");
-        window.location.href = "http://localhost:8081";
+        window.location.href = process.env.DOMAIN_URL;
     };
 
     useEffect(() => {

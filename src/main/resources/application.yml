@@ -1,9 +1,13 @@
 ---
+
 #------------------------------------------------------------------------------
 # Server Configurations
 #
+domain:
+  url: ${DOMAIN_URL}
+
 server:
-  port: 8081
+  port: 8080
   error:
     whitelabel:
       enabled: false
@@ -16,7 +20,7 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/${DB_NAME}?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+    url: jdbc:mysql://${MYSQL_HOST:${DB_HOST}}:3306/${DB_NAME}?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver

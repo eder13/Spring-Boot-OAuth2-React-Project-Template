@@ -2,7 +2,7 @@
 
 A full stack Spring Boot + React template with integrated OAuth2 (Google) support.
 
-The index.html is served on [localhost:8081](http://localhost:8081/) using Thymeleaf. The api is served on [localhost:8081/api](http://localhost:8081/api) endpoint (as specified in `application.yml`).
+The index.html is served on [localhost:8080](http://localhost:8080/) using Thymeleaf. The api is served on [localhost:8080/api](http://localhost:8080/api) endpoint (as specified in `application.yml`).
 
 ## Requirements
 
@@ -21,6 +21,9 @@ also referenced inside `application.yml` like `${ENV_VAR_NAME}` thanks to the [d
 0. Clone this template. Create a `.env` file in the root of the project and configure the database and OAuth2 google settings:
 
 ```dotenv
+DOMAIN_URL = http://<your-domain>:8080
+
+DB_HOST = <your-host>
 DB_NAME = <your-database-name>
 DB_USER = <MySQL-user>
 DB_PASSWORD = <MySQL-password>
@@ -54,11 +57,11 @@ GOOGLE_OAUTH2_CLIENT_SECRET = <your-client-secret>
 
 - Setup new credentials (_Create credentials_ > _OAuth-Client-ID_) in the [Google API Console](https://console.developers.google.com/)
   - Name: MyApplication
-  - Authorized Redirect URIs: [http://localhost:8081/login/oauth2/code/google](http://localhost:8081/login/oauth2/code/google)
+  - Authorized Redirect URIs: [http://localhost:8080/login/oauth2/code/google](http://localhost:8080/login/oauth2/code/google)
 
 3. Copy your `cliendId` and `clientSecret` inside your `.env` file.
 
-4. Start the server using `./mvnw spring-boot:run` and navigate to [http://localhost:8081/](http://localhost:8081/).
+4. Start the server using `./mvnw spring-boot:run` and navigate to [http://localhost:8080/](http://localhost:8080/).
    You should now be able to login with Google. After a successful login you are presented with the (protected) content.
 
 ## How it works
