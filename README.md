@@ -1,27 +1,20 @@
-# Spring Boot OAuth2 React Template
+# Spring Boot React Template
 
-A full stack Spring Boot + React template with integrated OAuth2 (Google) support.
+A template for quickly bootstrapping a Spring+React App.
 
-The index.html is served on [localhost:8080](http://localhost:8080/) using Thymeleaf. The api is served on [localhost:8080/api](http://localhost:8080/api) endpoint (as specified in `application.yml`).
+## Features 
 
-## Requirements
+* Spring API with React frontend on a single domain
+* Hot Module Replacement
+* Google social login support
+* `.env` support
 
-- MySQL (community server is fine)
-- JDK 8 or above
-- (optional) maven
-- (optional) Node.js
+## Setup
 
-## Environment Variables
-
-Create a `.env` file inside the root of the project. The environment variables can be used in React (`process.env.ENV_VAR_NAME`) and
-also referenced inside `application.yml` like `${ENV_VAR_NAME}` thanks to the [dotenv-java addon](https://github.com/cdimascio/dotenv-java).
-
-## Quick Start
-
-0. Clone this template. Create a `.env` file in the root of the project and configure the database and OAuth2 google settings:
+0. Clone this template. Create a `.env` file in the root of the project and configure the project:
 
 ```dotenv
-DOMAIN_URL = http://<your-domain>:8080
+DOMAIN_URL = http://localhost:8080
 
 DB_HOST = <your-host>
 DB_NAME = <your-database-name>
@@ -51,8 +44,6 @@ GOOGLE_OAUTH2_CLIENT_SECRET = <your-client-secret>
    CREATE TABLE user (id INT UNSIGNED NOT NULL AUTO_INCREMENT, name VARCHAR(255), email VARCHAR(320), PRIMARY KEY (id));
    ```
 
-   **_NOTE:_** If you want a different schema don't forget to adjust the configuration inside `User.java` and `UserRepository.java`
-
 2. Go to your OAuth Provider and register your Web App. For Google do the following:
 
 - Setup new credentials (_Create credentials_ > _OAuth-Client-ID_) in the [Google API Console](https://console.developers.google.com/)
@@ -61,35 +52,21 @@ GOOGLE_OAUTH2_CLIENT_SECRET = <your-client-secret>
 
 3. Copy your `cliendId` and `clientSecret` inside your `.env` file.
 
-4. Start the server using `./mvnw spring-boot:run` and navigate to [http://localhost:8080/](http://localhost:8080/).
-   You should now be able to login with Google. After a successful login you are presented with the (protected) content.
 
-## How it works
+4. Start the Spring Boot Server: 
 
-The React frontend is served under `src/main/frontend`, after building the whole project, a production built
-of the frontend is copied to `src/main/resources/static/built/bundle.js`. This is all done using the frontend-maven-plugin, which basically installs Node on Spring Boot.
+```
+./mvwn spring-boot:run
+```
 
-To build the backend + frontend and start the server, run
+5. Start the Webpack Dev Server:
 
-    ./mvnw spring-boot:run
+```
+npm start
+```
 
-There is also a npm script for building the frontend if you just work on that (refresh page afterwards).
+Navigate to [http://localhost:8080](http://localhost:8080) and enjoy react hot reloading :)
 
-    npm run watch
+# Deployment
 
-**Side note**: Default white label errors have been disabled since otherwise React's router wouldn't kick in. This means
-you have to handle 404 Errors on the client (inside React). For custom errors (authentication errors), instead of the
-`/error` endpoint, the endpoint `/error?message=true` is used.
-
-## Installing other npm packages (optional)
-
-There is a `package.json` inside the $ROOT of the project. You can simply add your additional npm packages here. If you
-have also NodeJS/npm installed on your local machine, you can also run `npm install <package>`, which will include the dependencies
-inside the `package.json`. When you build the project, the frontend-maven-plugin will then install all packages on the server side automatically.
-
-## A note to maven (optional)
-
-This template comes with a maven wrapper so that you do not need to install maven. If you have maven on your system and want to
-run your own version of maven, you can build your own wrapper as described [here](https://www.baeldung.com/maven-wrapper):
-
-    mvn -N io.takari:maven:wrapper
+See prod branch instructions (configuration without HMR).
