@@ -69,4 +69,4 @@ Navigate to [http://localhost:8080](http://localhost:8080) and enjoy react hot r
 
 # Deployment
 
-See prod branch instructions (configuration without HMR).
+See prod branch instructions (configuration without HMR and React Built set to production).
