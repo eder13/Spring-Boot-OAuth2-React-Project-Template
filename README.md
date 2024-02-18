@@ -1,6 +1,6 @@
 # Spring Boot React OAuth2 Template
 
-> :warning: **This template is deprecated**: This template is for archive purposes only.
+> :warning: **This template is deprecated**: This repository exists for archive purposes only.
 
 A template for quickly bootstrapping a Spring+React App with OAuth2 Authentication for prototyping.
 
