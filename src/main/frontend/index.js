@@ -1,22 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
 import App from './components/App';
+import { getUser } from './utils/data-fetching';
 
-const render = (App) => {
+(async () => {
+    const response = await getUser();
     ReactDOM.render(
-        <AppContainer>
-            <App />
-        </AppContainer>,
+        <App
+            isLoggedIn={response.isLoggedIn}
+            username={response.username}
+            errorMessage={response.errorMessage}
+        />,
         document.getElementById('root')
     );
-};
-
-render(App);
-
-if (module.hot) {
-    module.hot.accept('./components/App.js', () => {
-        const NextRootContainer = require('./components/App').default;
-        render(NextRootContainer);
-    });
-}
+})();

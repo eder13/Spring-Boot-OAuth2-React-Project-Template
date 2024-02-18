@@ -1,80 +1,37 @@
-import React, {Fragment, useEffect, useState} from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-
-/**
- * This is just an Example for setting login/logout
- */
-
-axios.interceptors.request.use((req) => {
-    if (
-        req.method === "post" ||
-        req.method === "delete" ||
-        req.method === "put" ||
-        req.method === "patch"
-    ) {
-        if (!(/^http:.*/.test(req.url) || /^https:.*/.test(req.url))) {
-            req.headers.common = {
-                ...req.headers.common,
-                "X-XSRF-TOKEN": Cookies.get("XSRF-TOKEN"),
-            };
-        }
-    }
-
-    return req;
-});
+import React, { Fragment } from 'react';
+import { useUser } from '../../context/AuthProvider';
+import { Redirect } from 'react-router-dom';
 
 const Home = () => {
+    const user = useUser();
 
-    const [user, setUser] = useState("");
-    const [isLoggedIn, setIsLoggedIn] = useState("");
-    const [errorLogging, setErrorLogging] = useState("");
-
-    const logout = async (e) => {
-        await axios.post("/logout");
-        window.location.href = process.env.DOMAIN_URL;
-    };
-
-    useEffect(() => {
-        const loadData = async () => {
-            return await axios.get("/user");
-        }
-
-        // "authentication check" -> check if we can access /user endpoint
-        loadData().then(async (userData) => {
-            setUser(userData.data.email);
-            setIsLoggedIn('succeeded');
-        }).catch(async e => {
-            setIsLoggedIn('failed');
-            const req = await axios.get("/error?message=true");
-            if(req.data !== "") {
-                setErrorLogging(req.data);
-            }
-        });
-    }, []);
-
-    if(isLoggedIn === 'succeeded') {
-        return (
-            <Fragment>
-                <div>Hello {user}</div>
-                <button onClick={logout}>Logout</button>
-            </Fragment>
-        );
-    } else {
-        return(
-            <Fragment>
-                <h1>Login</h1>
-                <strong style={{color: 'red'}}>
-                    { errorLogging !== "" ? errorLogging : "" }
-                </strong>
-                <div className="container">
-                    <div>
-                        With Google: <a href="/oauth2/authorization/google">click here</a>
-                    </div>
-                </div>
-            </Fragment>
-        );
+    if (user.isLoggedIn) {
+        return <Redirect to="/profile" />;
     }
-}
+
+    return (
+        <div class="container py-5">
+            <h1>Home</h1>
+            <br />
+            <br />
+
+            {user.errorMessage && (
+                <div class="alert alert-danger">
+                    Please login before you try accessing the site.
+                </div>
+            )}
+
+            <div>
+                Login With Google:{' '}
+                <a
+                    class="btn btn-primary"
+                    href="/oauth2/authorization/google"
+                >
+                    click here
+                </a>
+            </div>
+        </div>
+    );
+};
 
 export default Home;

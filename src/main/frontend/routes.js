@@ -1,22 +1,43 @@
 import React from 'react';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Home from "./components/sites/Home";
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import Home from './components/sites/Home';
+import Profile from './components/sites/User';
+import { useUser } from './context/AuthProvider';
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+    const user = useUser();
+
+    return (
+        <Route
+            {...rest}
+            render={(props) =>
+                !user.isLoggedIn ? (
+                    <Redirect to="/" />
+                ) : (
+                    <Component {...props} />
+                )
+            }
+        />
+    );
+};
 
 const Routes = () => {
-
-    /**
-     * TODO: For Redux do Auth check here
-     * As soon as the site loads we check if the user is still logged in (session)
-     * This loads user Context inside the store whenever page loads
-     * */
-
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" component={Home}/>
+                <Route
+                    exact
+                    path="/"
+                    component={Home}
+                />
+                <PrivateRoute
+                    exact
+                    path="/profile"
+                    component={Profile}
+                />
             </Switch>
         </BrowserRouter>
     );
-}
+};
 
 export default Routes;
